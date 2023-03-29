@@ -9,7 +9,7 @@ namespace Virtuesky.Ads.Editor
         public static void MenuOpenSettings()
         {
             var adConfig = Virtuesky.Ads.AdConfig.Instance;
-            UnityEditor.EditorGUIUtility.PingObject(adConfig);
+            // UnityEditor.EditorGUIUtility.PingObject(adConfig);
             Selection.activeObject = adConfig;
             EditorUtility.FocusProjectWindow();
         }

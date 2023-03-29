@@ -1,8 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Advertising : MonoBehaviour
+namespace Virtuesky.Ads
 {
-    
+    public class Advertising : MonoBehaviour
+    {
+    }
 }
