@@ -1,11 +1,11 @@
+#if MAX_ENABLE
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Virtuesky.Ads
 {
-    public class MaxController : MonoBehaviour
+    public class MaxManager : MonoBehaviour
     {
         [SerializeField] MaxSdkBase.BannerPosition bannerPos = MaxSdkBase.BannerPosition.BottomCenter;
         private int interstitialRetryAttempt;
@@ -55,7 +55,7 @@ namespace Virtuesky.Ads
         public void InitBannerAds()
         {
             LoadBannerAds();
-            MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+            MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += RevenueTracking.OnAdRevenuePaidEvent;
             Debug.Log("[Max] banner init!");
         }
 
@@ -93,7 +93,7 @@ namespace Virtuesky.Ads
             MaxSdkCallbacks.Interstitial.OnAdLoadFailedEvent += OnInterstitialFailedEvent;
             MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += InterstitialFailedToDisplayEvent;
             MaxSdkCallbacks.Interstitial.OnAdHiddenEvent += OnInterstitialHiddenEvent;
-            MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+            MaxSdkCallbacks.Interstitial.OnAdRevenuePaidEvent += RevenueTracking.OnAdRevenuePaidEvent;
 
             // Load the first interstitial
             LoadInterAds();
@@ -168,7 +168,7 @@ namespace Virtuesky.Ads
             MaxSdkCallbacks.Rewarded.OnAdClickedEvent += OnRewardedAdClickedEvent;
             MaxSdkCallbacks.Rewarded.OnAdHiddenEvent += OnRewardedAdHiddenEvent;
             MaxSdkCallbacks.Rewarded.OnAdReceivedRewardEvent += OnRewardedAdReceivedRewardEvent;
-            MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+            MaxSdkCallbacks.Rewarded.OnAdRevenuePaidEvent += RevenueTracking.OnAdRevenuePaidEvent;
 
             // Load the first RewardedAd
             LoadRewardAds();
@@ -277,7 +277,7 @@ namespace Virtuesky.Ads
         public void InitAppOpenAds()
         {
             MaxSdkCallbacks.AppOpen.OnAdHiddenEvent += OnAppOpenDismissedEvent;
-            MaxSdkCallbacks.AppOpen.OnAdRevenuePaidEvent += OnAdRevenuePaidEvent;
+            MaxSdkCallbacks.AppOpen.OnAdRevenuePaidEvent += RevenueTracking.OnAdRevenuePaidEvent;
         }
 
         public void LoadAppOpenAds()
@@ -310,39 +310,6 @@ namespace Virtuesky.Ads
         }
 
         #endregion
-
-        #region log payment
-
-        private void OnAdRevenuePaidEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
-        {
-            // Log an event with ad value parameters
-            // double revenue = adInfo.Revenue;
-            //
-            // Debug.Log("adinfo.Revenue: " + adInfo.Revenue);
-            // // Ad revenue paid. Use this callback to track user revenue.
-            // // send ad revenue info to Adjust
-            // AdjustAdRevenue adRevenue = new AdjustAdRevenue(AdjustConfig.AdjustAdRevenueSourceAppLovinMAX);
-            // adRevenue.setRevenue(adInfo.Revenue, "USD");
-            // adRevenue.setAdRevenueNetwork(adInfo.NetworkName);
-            // adRevenue.setAdRevenuePlacement(adInfo.Placement);
-            // adRevenue.setAdRevenueUnit(adInfo.AdUnitIdentifier);
-            // Adjust.trackAdRevenue(adRevenue);
-            //
-            // // Log an event with ad value parameters
-            // Parameter[] LTVParameters =
-            // {
-            //     // Log ad value in micros.
-            //     new Parameter("value", revenue),
-            //     new Parameter("ad_platform", "AppLovin"),
-            //     new Parameter("ad_format", adInfo.AdFormat),
-            //     new Parameter("currency", "USD"),
-            //     new Parameter("ad_unit_name", adInfo.AdUnitIdentifier),
-            //     new Parameter("ad_source", adInfo.NetworkName)
-            // };
-            //
-            // FirebaseAnalytics.LogEvent("ad_impression", LTVParameters);
-        }
-
-        #endregion
     }
 }
+#endif

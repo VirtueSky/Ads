@@ -9,12 +9,12 @@ namespace Virtuesky.Ads
         {
             if (Application.isPlaying)
             {
-                var runtimeObject = new GameObject("RuntimeObject") { hideFlags = HideFlags.HideInHierarchy };
+                var runtimeObject = new GameObject("RuntimeObject") /*{ hideFlags = HideFlags.HideInHierarchy }*/;
                 UnityEngine.Object.DontDestroyOnLoad(runtimeObject);
-#if VIRTUESKY_ADS
+#if ENABLE_ADS
                 if (Virtuesky.Ads.AdConfig.AutoInit)
                 {
-                    runtimeObject.AddComponent<Virtuesky.Ads.Advertising>();
+                    runtimeObject.AddComponent<Virtuesky.Ads.AdsManager>();
                 }
 #endif
             }

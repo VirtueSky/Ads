@@ -4,5 +4,6 @@
     {
         None,
         Applovin,
+        Admod,
     }
 }
